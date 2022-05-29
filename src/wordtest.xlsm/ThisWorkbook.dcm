@@ -1,0 +1,70 @@
+VERSION 1.0 CLASS
+BEGIN
+  MultiUse = -1  'True
+END
+Attribute VB_Name = "ThisWorkbook"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = True
+Option Explicit
+
+'This macro is written by Taisei FUJISAWA to realize easy output of English word test.
+'All rights reserved.
+'Last revise:2019/01/02
+
+'Note:Refer when starting new wordbook
+'*Write header(name of edited wordbook) at three praces(Eng->Jap,Jap->Eng,Answer)
+'*White the number of words in wordbook at constant number in the program at two praces(This Workbook and Module1)
+
+
+'This macro runs when This Workbook is opened.This macro sets up the choices of worksheets(1).
+
+Private Sub Workbook_Open()
+
+
+    Const AllWords = 1900       'Costant Number,corresponding the number of words in wordbook,ONE MORE PLACE AT Mojule1.
+    
+    
+    If AllWords Mod 100 <> 0 Then
+        If AllWords Mod 100 < 50 Then
+            Worksheets(1).Scope.AddItem (AllWords Mod 50 + 50)
+        Else
+            Worksheets(1).Scope.AddItem (AllWords Mod 100)
+        End If
+    Worksheets(1).Scope.AddItem (AllWords)
+    End If
+    'worksheets(1).Scope's choices addition;when Const Mod 100 not 0 or Mod 50 not 0
+    
+    
+    Worksheets(1).Kind.AddItem ("‰pŒê¨“ú–{Œê")
+    Worksheets(1).Kind.AddItem ("“ú–{Œê¨‰pŒê")
+    'worksheets(1).Kind's choices addition
+    
+    
+    Dim i As Integer
+    i = 1
+    Do While i < AllWords
+        Worksheets(1).Min.AddItem (i)
+        i = i + 50
+    Loop
+    'worksheets(1).Min's choices addition;1,51,101,151,...,...
+
+
+    Worksheets(1).Scope.AddItem (50)
+    i = 100
+    Do While i <= AllWords
+        Worksheets(1).Scope.AddItem (i)
+        i = i + 100
+    Loop
+    'worksheets(1).Scope's choices addition;50 and multiples of 100
+    
+    
+    For i = 1 To 50
+        Worksheets(1).Sets.AddItem (i)
+    Next
+    'worksheets(1).Sets' choices addition;1 to 50
+
+
+End Sub
+
